@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import './Login.css'; // You can style this component using a CSS file
+import './Login.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { userAxiosInstance } from '../../services/axiosInstance';
+import { USER_ACCESS_TOKEN, USER_REFRESH_TOKEN } from '../../services/constants';
 
 function Login() {
   const [formData, setFormData] = useState({
-    identifier: '',
+    username: '',
     password: ''
   });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -14,13 +19,23 @@ function Login() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-  };
-
-  const handleGoogleAuth = () => {
-    // Handle Google Authentication logic here
+    setError(null); // Clear previous error
+    try {
+      const response = await userAxiosInstance.post('/accounts/token/', formData);
+      if (response.status === 200) {
+        localStorage.setItem(USER_ACCESS_TOKEN, response.data.access);
+        localStorage.setItem(USER_REFRESH_TOKEN, response.data.refresh);
+        navigate('/');
+      } else {
+        console.error('Login failed:', response.data);
+        setError('Login failed. Please check your username and password.');
+      }
+    } catch (error) {
+      console.error('Login error:', error.response.data);
+      setError('Login failed. Please check your username and password.');
+    }
   };
 
   return (
@@ -29,9 +44,9 @@ function Login() {
       <form onSubmit={handleSubmit} className="login-form">
         <input
           type="text"
-          name="identifier"
+          name="username"
           placeholder="Mobile Number, Email, or Username"
-          value={formData.identifier}
+          value={formData.username}
           onChange={handleChange}
           required
         />
@@ -44,12 +59,10 @@ function Login() {
           required
         />
         <button type="submit">Log In</button>
-        <button type="button" onClick={handleGoogleAuth} className="google-auth-button">
-          Log In with Google
-        </button>
       </form>
+      {error && <p className="error-message">{error}</p>}
       <p>
-        Don't have an account? <a href="/signup">Sign up</a>
+        Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
     </div>
   );
