@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './AddImageModal.css';
 import { FaTimes, FaImage, FaUpload } from 'react-icons/fa';
+import { userAxiosInstance } from '../../services/axiosInstance';
 
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ isOpen, onClose, userId }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [caption, setCaption] = useState('');
     const textareaRef = useRef(null);
@@ -16,7 +17,7 @@ const Modal = ({ isOpen, onClose }) => {
 
     const handleImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
-            setSelectedImage(URL.createObjectURL(event.target.files[0]));
+            setSelectedImage(event.target.files[0]);
         }
     };
 
@@ -30,6 +31,30 @@ const Modal = ({ isOpen, onClose }) => {
 
     const handleCaptionChange = (e) => {
         setCaption(e.target.value);
+    };
+
+    const handleSubmit = async () => {
+        if (selectedImage && caption) {
+            const formData = new FormData();
+            formData.append('image', selectedImage);
+            formData.append('caption', caption);
+            
+            try {
+                const response = await userAxiosInstance.post('/post/', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+                console.log(response);
+                setSelectedImage(null);
+                setCaption('');
+                textareaRef.current.style.height = 'auto';
+                textareaRef.current.value = '';
+                onClose();
+            } catch (error) {
+                console.error(error);
+            }
+        }
     };
 
     return (
@@ -52,7 +77,10 @@ const Modal = ({ isOpen, onClose }) => {
                     />
                     {selectedImage && (
                         <div className="image-preview">
-                            <img src={selectedImage} alt="Selected Preview" />
+                            <img
+                                src={URL.createObjectURL(selectedImage)}
+                                alt="Selected Preview"
+                            />
                         </div>
                     )}
                 </div>
@@ -63,7 +91,7 @@ const Modal = ({ isOpen, onClose }) => {
                     onChange={handleCaptionChange}
                     maxLength={255}
                 ></textarea>
-                <button className="modal-submit">
+                <button className="modal-submit" onClick={handleSubmit}>
                     <FaUpload /> Submit
                 </button>
             </div>
