@@ -6,6 +6,7 @@ import { userAxiosInstance } from '../../services/axiosInstance';
 const Modal = ({ isOpen, onClose, userId }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [caption, setCaption] = useState('');
+    const [message , setMessage] = useState(null)
     const textareaRef = useRef(null);
 
     useEffect(() => {
@@ -26,6 +27,8 @@ const Modal = ({ isOpen, onClose, userId }) => {
     const handleClose = (e) => {
         e.stopPropagation();
         setSelectedImage(null);
+        setCaption('');
+        setMessage(null);
         onClose();
     };
 
@@ -54,6 +57,9 @@ const Modal = ({ isOpen, onClose, userId }) => {
             } catch (error) {
                 console.error(error);
             }
+        }else{
+            setMessage('Please select an image and enter a caption');
+
         }
     };
 
@@ -91,6 +97,7 @@ const Modal = ({ isOpen, onClose, userId }) => {
                     onChange={handleCaptionChange}
                     maxLength={255}
                 ></textarea>
+                <p className='text-danger text-center' >{message}</p>
                 <button className="modal-submit" onClick={handleSubmit}>
                     <FaUpload /> Submit
                 </button>

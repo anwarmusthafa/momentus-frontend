@@ -67,7 +67,7 @@ function ForgotPassword() {
             disabled={step > 1}
           />
           {step === 1 && (
-            <button onClick={handleEmailSubmit}>Send OTP</button>
+            <button className='forgot-password-button' onClick={handleEmailSubmit}>Send OTP</button>
           )}
         </div>
 
@@ -81,7 +81,7 @@ function ForgotPassword() {
               disabled={step > 2}
             />
             {step === 2 && (
-              <button onClick={handleOtpSubmit}>Verify OTP</button>
+              <button className='forgot-password-button' onClick={handleOtpSubmit}>Verify OTP</button>
             )}
           </div>
         )}
@@ -100,7 +100,7 @@ function ForgotPassword() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm new password"
             />
-            <button onClick={handlePasswordReset}>Reset Password</button>
+            <button className='forgot-password-button' onClick={handlePasswordReset}>Reset Password</button>
           </div>
         )}
         
