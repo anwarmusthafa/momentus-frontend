@@ -20,6 +20,9 @@ const Sidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
+const profile_data = localStorage.getItem('profile');
+const profile = profile_data ? JSON.parse(profile_data) : null;
+
     return (
         <>
             <div className="hamburger-menu" onClick={toggleSidebar}>
@@ -49,7 +52,7 @@ const Sidebar = () => {
                         <i className="fa-solid fa-square-plus"></i> Create
                     </button>
                     <NavLink to="/profile" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
-                        <img src="https://i.pravatar.cc/300" alt="" /> Profile
+                        <img src={profile?.profile_picture_url} alt="" /> Profile
                     </NavLink>
                     <NavLink to="/settings" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
                         <i className="fas fa-cog"></i> Settings
