@@ -7,6 +7,7 @@ import OtpVerification from './components/Auth/OtpVerification';
 import ProtectedRoute from './components/Auth/ProtectedRoute';
 import NotFound from './pages/NotFound';
 import ForgotPassword from './components/Auth/ForgotPassword';
+import ProfilePage from './pages/ProfilePage';
 function App() {
   return (
     <>
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={ <ProtectedRoute><HomePage /></ProtectedRoute> } />
           <Route path="/otp-verification/:id" element={<OtpVerification />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/profile" element={ <ProtectedRoute> <ProfilePage /> </ProtectedRoute> } />
           <Route path='*' element={ <NotFound/> } />
         </Routes>
       </BrowserRouter>

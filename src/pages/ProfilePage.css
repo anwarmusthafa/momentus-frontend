@@ -1,0 +1,16 @@
+/* ProfilePage.css */
+.profile-page {
+    display: flex;
+}
+
+.content {
+    margin-left: 250px; /* Adjust this value based on the sidebar width */
+    padding: 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .content {
+        margin-left: 0; /* Remove left margin on smaller screens */
+    }
+}

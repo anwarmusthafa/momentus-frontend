@@ -1,0 +1,138 @@
+/* ProfileComponent.css */
+.profile-container {
+    max-width: 935px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-right: 30px;
+    object-fit: cover;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1; /* Allow profile info to take remaining space */
+}
+
+.profile-info h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.edit-profile-button {
+    padding: 5px 10px;
+    font-size: 16px;
+    margin: 10px 0;
+    border: 1px solid #dbdbdb;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.profile-stats {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.profile-stat {
+    margin-right: 20px;
+}
+
+.stat-number {
+    font-weight: bold;
+}
+
+.stat-label {
+    color: #8e8e8e;
+}
+
+.profile-bio {
+    font-size: 16px;
+}
+
+.profile-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.gallery-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 10px;
+    }
+
+    .profile-header {
+        flex-direction: column; /* Stack profile image and info vertically */
+        align-items: center;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        margin-right: 0;
+        margin-bottom: 20px; /* Add space below the image */
+    }
+
+    .profile-info h1 {
+        font-size: 20px;
+        text-align: center; /* Center the username */
+    }
+
+    .profile-stats {
+        justify-content: center; /* Center the stats */
+    }
+
+    .edit-profile-button {
+        align-self: center; /* Center the edit button */
+    }
+
+    .profile-bio {
+        text-align: center; /* Center the bio */
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-info h1 {
+        font-size: 18px;
+    }
+
+    .edit-profile-button {
+        font-size: 14px;
+    }
+
+    .profile-stats {
+        flex-direction: column; /* Stack the stats vertically */
+        align-items: center;
+    }
+
+    .profile-stat {
+        margin-bottom: 10px;
+    }
+
+    .gallery-image {
+        aspect-ratio: 1 / 1;
+    }
+
+    .profile-gallery {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+    }
+}

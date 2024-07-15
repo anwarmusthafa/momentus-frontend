@@ -11,6 +11,8 @@
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
+    transition: transform 0.3s ease;
+    z-index: 1000; /* Ensure the sidebar is on top */
 }
 
 .sidebar-logo {
@@ -51,14 +53,46 @@
     font-weight: bold;
     background-color: #e6e6e6;
 }
-.create_button{
+
+.create_button {
     border: none;
     background-color: #ffffff;
     width: 100%;
     display: flex;
 }
-.create_button:hover{
-    background-color: #f2f2f2;
 
-    
+.create_button:hover {
+    background-color: #f2f2f2;
+}
+
+.sidebar-link img {
+    width: 30px; 
+    height: 30px; 
+    border-radius: 50%; 
+    margin-right: 10px; 
+    object-fit: cover;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%); /* Hide sidebar by default */
+    }
+    .sidebar.active {
+        transform: translateX(0); /* Show sidebar when active */
+    }
+}
+
+.hamburger-menu {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1001; /* Ensure the hamburger menu is on top */
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
 }
