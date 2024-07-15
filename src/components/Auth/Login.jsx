@@ -61,6 +61,9 @@ function Login() {
         <button type="submit">Log In</button>
       </form>
       {error && <p className="error-message">{error}</p>}
+      <p className='forgot-password'>
+         <Link  to="/forgot-password">forgot password?</Link>
+      </p>
       <p>
         Don't have an account? <Link to="/signup">Sign Up</Link>
       </p>
