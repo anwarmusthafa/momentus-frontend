@@ -30,8 +30,13 @@
     font-size: 24px;
     margin: 0;
 }
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
 
-.edit-profile-button {
+.edit-profile-button, .logout-button {
     padding: 5px 10px;
     font-size: 16px;
     margin: 10px 0;
@@ -39,6 +44,12 @@
     background-color: white;
     cursor: pointer;
     border-radius: 3px;
+    width: 48%; /* Adjust to 48% to account for space between buttons */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+.edit-profile-button:hover , .logout-button:hover{
+    background-color: black;
+    color: white;
 }
 
 .profile-stats {

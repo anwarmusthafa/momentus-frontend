@@ -8,6 +8,13 @@ import ProtectedRoute from './components/Auth/ProtectedRoute';
 import NotFound from './pages/NotFound';
 import ForgotPassword from './components/Auth/ForgotPassword';
 import ProfilePage from './pages/ProfilePage';
+
+function Logout(){
+  localStorage.clear()
+  return <Navigate to="/login" />
+}
+
+
 function App() {
   return (
     <>
@@ -15,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={< SignupPage />} />
+          <Route path='/logout' element={ <Logout/> } />
           <Route path="/" element={ <ProtectedRoute><HomePage /></ProtectedRoute> } />
           <Route path="/otp-verification/:id" element={<OtpVerification />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
