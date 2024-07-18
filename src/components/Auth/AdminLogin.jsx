@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import './AdminLogin.css'; // Import the CSS file for styling
 import { adminAxiosInstance } from '../../services/axiosInstance';
 import { ADMIN_ACCESS_TOKEN, ADMIN_REFRESH_TOKEN } from '../../services/constants';
@@ -10,6 +10,11 @@ const AdminLoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();

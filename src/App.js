@@ -17,7 +17,6 @@ function Logout(){
   return <Navigate to="/login" />
 }
 
-
 function App() {
   return (
     <>
@@ -31,8 +30,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/profile" element={ <ProtectedRoute> <ProfilePage /> </ProtectedRoute> } />
           <Route path="/admin-login" element={< AdminLogin/>} />
-          <Route path="/admin-home" element={< AdminHome/>} />
-          <Route path="/usermanagement" element={< UserManagementPage/>} />
+          <Route path="/admin-home" element={ <ProtectedRoute admin={true}>< AdminHome/> </ProtectedRoute> } />
+          <Route path="/usermanagement" element={<ProtectedRoute admin={true}>< UserManagementPage/></ProtectedRoute>  } />
           <Route path='*' element={ <NotFound/> } />
         </Routes>
       </BrowserRouter>

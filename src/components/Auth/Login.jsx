@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { userAxiosInstance } from '../../services/axiosInstance';
@@ -11,6 +11,11 @@ function Login() {
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
 
   const handleChange = (e) => {
     setFormData({
