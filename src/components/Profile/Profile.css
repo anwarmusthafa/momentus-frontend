@@ -12,7 +12,7 @@
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-.profile-image {
+.user-profile-image {
     width: 150px;
     height: 150px;
     border-radius: 50%;

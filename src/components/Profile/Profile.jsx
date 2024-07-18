@@ -33,14 +33,12 @@ const Profile = () => {
         localStorage.clear();
         dispatch(userLogout());
         navigate('/login')
-
-
     }
 
     return (
         <div className="profile-container">
             <div className="profile-header">
-                <img src={profile?.profile_picture_url} alt="Profile" className="profile-image" />
+                <img src={profile?.profile_picture_url} alt="Profile" className="user-profile-image" />
                 <div className="profile-info">
                     <h1>{profile?.momentus_user_name}</h1>
                     <div className="button-container">

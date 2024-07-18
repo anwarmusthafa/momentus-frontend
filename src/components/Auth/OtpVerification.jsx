@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './OtpVerification.css';
 import { userAxiosInstance } from '../../services/axiosInstance';
 import { useNavigate , useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -36,12 +38,16 @@ const OtpVerification = () => {
         if (response.status === 200) {
           setIsSubmitted(true);
           setError(null);
-          navigate('/login');
+          toast.success("Otp verified, Please Login")
+          setTimeout(() => {
+            navigate('/login');
+          }, 2000); 
 
         }
       } catch (error) {
         setError('Invalid OTP. Please try again.');
         console.error('Error verifying OTP:', error.response.data);
+        toast.error("Invalid Otp")
       }
     }
   };
@@ -69,6 +75,7 @@ const OtpVerification = () => {
       </form>
       {isSubmitted && <p className="otp-verified-message">OTP Verified!</p>}
       {error && <p className="otp-error-message">{error}</p>}
+      <ToastContainer />
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './ForgotPassword.css';
 import { userAxiosInstance } from '../../services/axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ForgotPassword() {
   const [step, setStep] = useState(1);
@@ -15,21 +17,25 @@ function ForgotPassword() {
   const handleEmailSubmit = async () => {
     try {
       const response = await userAxiosInstance.post('/accounts/forgot-password/', { email });
-      setMessage(response.data.message);
+      // setMessage(response.data.message);
       console.log(response.data.message);
+      toast.success("OTP send to the email")
       setStep(2);
     } catch (error) {
-      setMessage(error.response.data.error);
+      toast.error("Error, Try Again")
+      // setMessage(error.response.data.error);
     }
   };
 
   const handleOtpSubmit = async () => {
     try {
       const response = await userAxiosInstance.post('/accounts/forgot-password-otp/', { email, otp });
-      setMessage(response.data.message);
+      // setMessage(response.data.message);
+      toast.success("OTP Verification is Successfull")
       setStep(3);
     } catch (error) {
-      setMessage(error.response.data.error);
+      // setMessage(error.response.data.error);
+      toast.error("OTP is invalid, Try Again")
     }
   };
 
@@ -46,11 +52,15 @@ function ForgotPassword() {
       setNewPassword('');
       setConfirmPassword('');
       if (response.status === 200) {
-        navigate('/login');
+        toast.success("Password Reset is Successfull, Please Login")
+        setTimeout(() => {
+          navigate('/login');
+        }, 2000); //
       }
 
     } catch (error) {
-      setMessage(error.response.data.error);
+      toast.error("Password Reset Failed, Try Again")
+      // setMessage(error.response.data.error);
     }
   };
 
@@ -106,6 +116,7 @@ function ForgotPassword() {
         
         {message && <p className="message">{message}</p>}
       </div>
+      <ToastContainer/>
     </div>
   );
 }
