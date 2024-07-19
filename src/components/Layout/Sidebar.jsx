@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './Sidebar.css'; // Import the CSS file for styling
 import AddImageModal from '../Modal/AddImageModal';
 import { FaBars } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 
 const Sidebar = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,8 +21,7 @@ const Sidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
-const profile_data = localStorage.getItem('profile');
-const profile = profile_data ? JSON.parse(profile_data) : null;
+    const profile = useSelector((state) => state.profile.profile);
 
     return (
         <>

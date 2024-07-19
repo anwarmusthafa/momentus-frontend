@@ -1,4 +1,4 @@
-// userSlice.js
+// slices/profileSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -11,10 +11,9 @@ const profileSlice = createSlice({
   reducers: {
     userLogin(state, action) {
       state.profile = action.payload;
-      localStorage.setItem('profile', JSON.stringify(action.payload));
     },
     userLogout(state) {
-      state.profile =null;
+      state.profile = null;
     },
   },
 });
