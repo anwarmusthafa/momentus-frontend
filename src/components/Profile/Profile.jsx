@@ -1,4 +1,3 @@
-// Profile.js
 import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import { userAxiosInstance } from '../../services/axiosInstance';
@@ -11,7 +10,8 @@ const Profile = () => {
   const profile = useSelector((state) => state.profile.profile);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isEditProfileOpen, setisEditProfileOpen] = useState("")
+  const [isEditProfileOpen, setisEditProfileOpen] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,7 +21,6 @@ const Profile = () => {
       try {
         const response = await userAxiosInstance.get('my-posts');
         setPosts(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -36,12 +35,20 @@ const Profile = () => {
     dispatch(userLogout());
     navigate('/login');
   };
-  const handleEditProfileClick = ()=>{
-    setisEditProfileOpen(true)
-  }
-  const handleEditProfileClose = ()=> {
-    setisEditProfileOpen(false)
-  }
+
+  const handleEditProfileClick = () => {
+    setisEditProfileOpen(true);
+  };
+
+  const handleEditProfileClose = () => {
+    setisEditProfileOpen(false);
+  };
+
+  const handleViewPost = (post) => {
+    const scrollY = window.scrollY;
+    navigate(`/post/${post.id}`, { state: { scrollY } });
+  };
+
   return (
     <div className="profile-container">
       <div className="profile-header">
@@ -63,7 +70,7 @@ const Profile = () => {
             </div>
             <div className="profile-stat">
               <span className="stat-number">789</span>
-              <span class="stat-label">Following</span>
+              <span className="stat-label">Following</span>
             </div>
           </div>
           <div className="full-name">
@@ -79,18 +86,19 @@ const Profile = () => {
           <p>Loading...</p>
         ) : posts.length > 0 ? (
           posts.map((post) => (
-            <img
-              key={post.id}
-              src={post.image_url} // Adjust according to your post model
-              alt={post.caption} // Adjust according to your post model
-              className="gallery-image"
-            />
+            <div key={post.id} className='post-container' onClick={() => handleViewPost(post)}>
+              <img
+                src={post.image_url} // Adjust according to your post model
+                alt={post.caption} // Adjust according to your post model
+                className="gallery-image"
+              />
+            </div>
           ))
         ) : (
           <p className="text-center">No posts to show</p>
         )}
       </div>
-      <EditProfileModal isOpen={isEditProfileOpen} user={profile}  onClose={handleEditProfileClose}/>
+      <EditProfileModal isOpen={isEditProfileOpen} user={profile} onClose={handleEditProfileClose} />
     </div>
   );
 };

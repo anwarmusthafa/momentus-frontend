@@ -8,7 +8,7 @@ function ProfilePage() {
         <div className="profile-page">
             <Sidebar />
             <div className="content">
-                <Profile />
+                {/* <Profile /> */}
             </div>
         </div>
     );
