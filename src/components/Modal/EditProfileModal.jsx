@@ -3,6 +3,8 @@ import './EditProfileModal.css'; // Import your CSS file here
 import { userAxiosInstance } from '../../services/axiosInstance';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { userLogin } from '../../redux/slices/profileSlice';
 
 const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
     const [profilePicture, setProfilePicture] = useState('');
@@ -14,6 +16,7 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
     const [initialFullName, setInitialFullName] = useState('');
     const [initialBio, setInitialBio] = useState('');
     const fileInputRef = useRef(null);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (user) {
@@ -39,6 +42,7 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
         let hasChanges = false;
         if (profilePicture !== initialProfilePicture) {
             updatedFields.profile_picture = fileInputRef.current.files[0];  // Use actual file object
+            hasChanges = true;
         }
         if (username !== initialUsername) {
             updatedFields.momentus_user_name = username;
@@ -70,18 +74,31 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
                     }
                 });
                 console.log("Profile updated successfully", response);
+                dispatch(userLogin(response.data));
+                toast.success("Profile updated")
                 handleClose();
 
             } catch (error) {
                 console.error("Error updating profile", error);
                 let errorMessage = 'Error updating profile. Please try again.';
-                if (error.response && error.response.data && error.response.data.detail) {
-                    errorMessage = error.response.data.detail;
+                
+                if (error.response && error.response.data) {
+                    const errorData = error.response.data;
+                    
+                    if (errorData.detail) {
+                        errorMessage = errorData.detail;
+                    } else if (typeof errorData === 'object') {
+                        errorMessage = Object.values(errorData).flat().join(', ');
+                    } else {
+                        errorMessage = error.message;
+                    }
                 } else if (error.message) {
                     errorMessage = error.message;
                 }
+                
                 console.error("Error updating profile", error);
                 toast.error(errorMessage);
+                
             }
         }
     };
