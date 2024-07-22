@@ -1,4 +1,4 @@
-import './App.css';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -32,13 +32,11 @@ function App() {
           <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/admin-home" element={<ProtectedRoute admin={true}><AdminHome /></ProtectedRoute>} />
           <Route path="/usermanagement" element={<ProtectedRoute admin={true}><UserManagementPage /></ProtectedRoute>} />
-          <Route path="*" element={<NotFound />} />
-          
-          <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
-            <Route index element={<HomePage />} />
-            <Route path="profile" element={<ProfilePage />} />
-            <Route path="post/:postId" element={<ViewPost />} />
+          <Route path="/post/:postId" element={<ProtectedRoute><ViewPost /></ProtectedRoute>} />
+          <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>}>
           </Route>
+          <Route path="profile/:momentusUsername" element={<ProtectedRoute><Layout /></ProtectedRoute>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

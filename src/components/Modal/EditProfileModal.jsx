@@ -16,7 +16,7 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
     const [initialFullName, setInitialFullName] = useState('');
     const [initialBio, setInitialBio] = useState('');
     const fileInputRef = useRef(null);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (user) {
@@ -60,22 +60,23 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
             toast.error("Please make any changes to submit.");
             return;  // Exit early if there are no changes
         }
-    
+
         if (Object.keys(updatedFields).length > 0) {
             const formData = new FormData();
             Object.keys(updatedFields).forEach(key => {
                 formData.append(key, updatedFields[key]);
             });
-    
+
             try {
-                const response = await userAxiosInstance.patch("/accounts/profile/", formData, {
+                const response = await userAxiosInstance.patch("/accounts/my-profile/", formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
                 console.log("Profile updated successfully", response);
                 dispatch(userLogin(response.data));
-                toast.success("Profile updated")
+                toast.success("Profile updated");
+                onSave(); // Call onSave to refresh the profile data in the Profile component
                 handleClose();
 
             } catch (error) {
@@ -98,11 +99,10 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
                 
                 console.error("Error updating profile", error);
                 toast.error(errorMessage);
-                
             }
         }
     };
-    
+
     const handleClose = () => {
         setProfilePicture(user.profile_picture_url);
         setUsername(user.momentus_user_name);

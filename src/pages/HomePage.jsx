@@ -10,10 +10,11 @@ function HomePage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    
     setLoading(true);
     const fetchProfile = async () => {
       try {
-        const response = await userAxiosInstance.get('accounts/profile/');
+        const response = await userAxiosInstance.get('accounts/my-profile/');
         dispatch(userLogin(response.data));
         setLoading(false);
       } catch (error) {

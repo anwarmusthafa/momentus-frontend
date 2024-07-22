@@ -33,28 +33,32 @@ const Sidebar = () => {
                     <h1>Momentus</h1>
                 </div>
                 <nav className="sidebar-nav">
-                    <NavLink to="/" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
+                    <NavLink to="/" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-home"></i> Home
                     </NavLink>
-                    <NavLink to="/search" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
+                    <NavLink to="/search" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-search"></i> Search
                     </NavLink>
-                    <NavLink to="/feed" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
+                    <NavLink to="/feed" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fa-regular fa-image"></i> Feed
                     </NavLink>
-                    <NavLink to="/messages" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
+                    <NavLink to="/messages" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-envelope"></i> Messages
                     </NavLink>
-                    <NavLink to="/notifications" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
+                    <NavLink to="/notifications" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-bell"></i> Notifications
                     </NavLink>
                     <button onClick={handleCreateClick} className="sidebar-link create_button">
                         <i className="fa-solid fa-square-plus"></i> Create
                     </button>
-                    <NavLink to="/profile" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
-                        <img src={profile?.profile_picture_url} alt="" /> Profile
+                    <NavLink 
+                      to={`/profile/${profile?.momentus_user_name}`} 
+                      className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} 
+                      onClick={toggleSidebar}
+                    >
+                      <img src={profile?.profile_picture_url} alt="Profile" /> Profile
                     </NavLink>
-                    <NavLink to="/settings" activeClassName="active" className="sidebar-link" onClick={toggleSidebar}>
+                    <NavLink to="/settings" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-cog"></i> Settings
                     </NavLink>
                 </nav>
