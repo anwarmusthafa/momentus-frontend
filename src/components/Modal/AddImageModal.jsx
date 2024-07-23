@@ -43,7 +43,7 @@ const Modal = ({ isOpen, onClose, userId }) => {
             formData.append('caption', caption);
             
             try {
-                const response = await userAxiosInstance.post('/post/', formData, {
+                const response = await userAxiosInstance.post('/create-post/', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                     },
