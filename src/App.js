@@ -21,25 +21,26 @@ function Logout() {
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/otp-verification/:id" element={<OtpVerification />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/admin-login" element={<AdminLogin />} />
-          <Route path="/admin-home" element={<ProtectedRoute admin={true}><AdminHome /></ProtectedRoute>} />
-          <Route path="/usermanagement" element={<ProtectedRoute admin={true}><UserManagementPage /></ProtectedRoute>} />
-          <Route path="/post/:postId" element={<ProtectedRoute><ViewPost /></ProtectedRoute>} />
-          <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>}>
-          </Route>
-          <Route path="profile/:momentusUsername" element={<ProtectedRoute><Layout /></ProtectedRoute>} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/otp-verification/:id" element={<OtpVerification />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/admin-home" element={<ProtectedRoute admin={true}><AdminHome /></ProtectedRoute>} />
+        <Route path="/usermanagement" element={<ProtectedRoute admin={true}><UserManagementPage /></ProtectedRoute>} />
+
+        <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+          <Route index element={<HomePage />} />
+          <Route path="post/:postId" element={<ViewPost />} />
+          <Route path="profile/:momentusUsername" element={<ProfilePage />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -46,9 +46,9 @@ const ViewPost = ({ onLike, onComment, onDelete }) => {
   const handleCommentSubmit = async () => {
     if (newComment.trim()) {
       try {
-        const response = await userAxiosInstance.post(`/posts/${postId}/comments`, { comment: newComment });
+        const response = await userAxiosInstance.post(`/comments?post-id=${postId}`, { comment: newComment });
         setComments([...comments, response.data]);
-        onComment(postId, newComment); // This can update the parent component if needed
+        onComment(postId, newComment);
         setNewComment('');
       } catch (error) {
         console.error("Failed to submit comment", error);
@@ -58,9 +58,9 @@ const ViewPost = ({ onLike, onComment, onDelete }) => {
 
   const handleCloseModal = () => {
     const { state } = location;
-    navigate(-1);
+    navigate(-1); // Navigate back to the previous page
     if (state && state.scrollY !== undefined) {
-      window.scrollTo(0, state.scrollY);
+      window.scrollTo(0, state.scrollY); // Restore scroll position
     }
   };
 

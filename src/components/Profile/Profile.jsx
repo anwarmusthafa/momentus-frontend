@@ -63,8 +63,7 @@ const Profile = () => {
   };
 
   const handleViewPost = (post) => {
-    const scrollY = window.scrollY;
-    navigate(`/post/${post.id}`, { state: { scrollY } });
+    navigate(`/post/${post.id}`, { state: { scrollY: window.scrollY } });
   };
 
   const handleProfileSave = () => {
