@@ -5,6 +5,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
 import { userLogin } from '../../redux/slices/profileSlice';
+import { message } from 'antd';
 
 const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
     const [profilePicture, setProfilePicture] = useState('');
@@ -75,7 +76,7 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
                 });
                 console.log("Profile updated successfully", response);
                 dispatch(userLogin(response.data));
-                toast.success("Profile updated");
+                message.success("Profile updated successfully");
                 onSave(); // Call onSave to refresh the profile data in the Profile component
                 handleClose();
 
@@ -98,7 +99,7 @@ const EditProfileModal = ({ isOpen, onClose, user, onSave }) => {
                 }
                 
                 console.error("Error updating profile", error);
-                toast.error(errorMessage);
+                message.error(errorMessage);
             }
         }
     };

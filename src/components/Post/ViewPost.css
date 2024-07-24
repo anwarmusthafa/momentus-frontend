@@ -74,3 +74,9 @@
   background-color: #1890ff; /* Example color for submit button */
   color: white;
 }
+.no-link-styles {
+  text-decoration: none;  /* Remove underline */
+  color: inherit;         /* Inherit text color from parent */
+  margin-right: auto;
+
+}

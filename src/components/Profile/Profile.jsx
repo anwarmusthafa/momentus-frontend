@@ -22,6 +22,7 @@ const Profile = () => {
     try {
       const response = await userAxiosInstance.get(`/accounts/user-profile/${momentusUsername}/`);
       setProfile(response.data);
+      console.log("p",profile);
     } catch (error) {
       console.error(error);
     } finally {
