@@ -26,7 +26,7 @@ const ViewPost = ({ onLike, onComment }) => {
         const response = await userAxiosInstance.get(`/post-details/${postId}/`);
         console.log("Post fetched successfully:", response.data);
         setPost(response.data);
-        setLiked(response.data.likedByUser);
+        setLiked(response.data.liked_by_user);
         setLikeCount(response.data.like_count); // Set initial like count
       } catch (error) {
         console.error("Failed to fetch post", error);
@@ -133,6 +133,7 @@ const ViewPost = ({ onLike, onComment }) => {
               />
             )}
           </div>
+          <hr />
           <div className="post-description">
             {post.description}
           </div>
@@ -164,12 +165,13 @@ const ViewPost = ({ onLike, onComment }) => {
               onClick={handleLike}
               className="like-button"
             />
-            <span className="like-count">{likeCount} {likeCount === 1 ? 'Like' : 'Likes'}</span>
+        
+            <span className="like-count">{ likeCount == 0 ? 'Be the first to like this post' : `${likeCount} ${likeCount === 1 ? 'Like' : 'Likes'}` }</span>
           </div>
 
           <div className="comment-input-container">
             <Input.TextArea
-              rows={3}
+              rows={1}
               value={newComment}
               onChange={(e) => setNewComment(e.target.value)}
               placeholder="Add a comment..."

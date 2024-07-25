@@ -44,8 +44,8 @@
 .view-post-modal .comments-section {
   flex: 1;
   overflow-y: auto;
-  max-height: 200px; /* Adjust height as needed */
-  margin-bottom: 10px;
+  max-height: 400px; /* Increase this value to hold more comments before scrolling */
+  
 }
 
 .view-post-modal .post-actions {
@@ -54,8 +54,20 @@
   margin-bottom: 10px;
 }
 
-.view-post-modal .post-actions .like-button {
-  font-size: 1.5em; /* Make the like button larger */
+.view-post-modal .post-actions .like-button .anticon{
+  font-size: 25px; /* Make the like button larger */
+  color: #ff4d4f;
+}
+.like-count{
+  font-size: 15px;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+.view-post-modal .post-actions .like-button .anticon .anticon-heart{
+  color: #ff4d4f;
+}
+.view-post-modal .post-actions .like-button .anticon .anticon-heart-filled{
+  color: #ff4d4f;
 }
 
 .view-post-modal .comment-input-container {
