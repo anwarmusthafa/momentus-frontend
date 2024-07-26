@@ -13,6 +13,7 @@ import UserManagementPage from './pages/UserManagementPage';
 import AdminLogin from "./components/Auth/AdminLogin";
 import ViewPost from './components/Post/ViewPost';
 import Layout from './components/Layout/Layout';
+import SearchUserPage from './pages/SearchUserPage';
 
 function Logout() {
   localStorage.clear();
@@ -29,6 +30,9 @@ function App() {
         <Route path="/otp-verification/:id" element={<OtpVerification />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/search" element={<ProtectedRoute ><SearchUserPage /></ProtectedRoute>} />
+
+
         <Route path="/admin-home" element={<ProtectedRoute admin={true}><AdminHome /></ProtectedRoute>} />
         <Route path="/usermanagement" element={<ProtectedRoute admin={true}><UserManagementPage /></ProtectedRoute>} />
 

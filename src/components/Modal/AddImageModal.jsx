@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './AddImageModal.css';
 import { FaTimes, FaImage, FaUpload } from 'react-icons/fa';
-import { userAxiosInstance } from '../../services/axiosInstance';
+import { userAxiosInstance } from '../../services/axiosInstance'; 
+import {  message as AntdMessage } from 'antd';
+
 
 const Modal = ({ isOpen, onClose, userId }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -49,10 +51,12 @@ const Modal = ({ isOpen, onClose, userId }) => {
                     },
                 });
                 console.log(response);
+                AntdMessage.success('Post created successfully');
                 setSelectedImage(null);
                 setCaption('');
                 textareaRef.current.style.height = 'auto';
                 textareaRef.current.value = '';
+
                 onClose();
             } catch (error) {
                 console.error(error);

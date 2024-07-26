@@ -4,6 +4,7 @@ import { userAxiosInstance } from '../../services/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {message as AntdMessage} from 'antd';
 
 function ForgotPassword() {
   const [step, setStep] = useState(1);
@@ -46,16 +47,15 @@ function ForgotPassword() {
     }
     try {
       const response = await userAxiosInstance.post('/accounts/reset-password/', { email, otp, new_password: newPassword });
-      setMessage(response.data.message);
+      // setMessage(response.data.message);
       setEmail('');
       setOtp('');
       setNewPassword('');
       setConfirmPassword('');
       if (response.status === 200) {
-        toast.success("Password Reset is Successfull, Please Login")
-        setTimeout(() => {
+        AntdMessage.success("Password Reset Successfully, Please Login")
           navigate('/login');
-        }, 2000); //
+        
       }
 
     } catch (error) {
