@@ -39,8 +39,8 @@ const Sidebar = () => {
                     <NavLink to="/search" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-search"></i> Search
                     </NavLink>
-                    <NavLink to="/feed" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
-                        <i className="fa-regular fa-image"></i> Feed
+                    <NavLink to="/explore" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
+                        <i className="fa-regular fa-image"></i> Explore
                     </NavLink>
                     <NavLink to="/messages" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-envelope"></i> Messages

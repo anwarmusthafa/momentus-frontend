@@ -14,6 +14,7 @@ import AdminLogin from "./components/Auth/AdminLogin";
 import ViewPost from './components/Post/ViewPost';
 import Layout from './components/Layout/Layout';
 import SearchUserPage from './pages/SearchUserPage';
+import ExplorePage from './pages/ExplorePage';
 
 function Logout() {
   localStorage.clear();
@@ -31,6 +32,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/search" element={<ProtectedRoute ><SearchUserPage /></ProtectedRoute>} />
+        <Route path="/explore" element={<ProtectedRoute >< ExplorePage /></ProtectedRoute>} />
 
 
         <Route path="/admin-home" element={<ProtectedRoute admin={true}><AdminHome /></ProtectedRoute>} />

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
-import { Avatar, Button, Input, List, Modal } from 'antd';
-import { HeartOutlined, HeartFilled, DeleteOutlined } from '@ant-design/icons';
+import { Avatar, Button, Input, List, Modal, message } from 'antd';
+import { HeartOutlined, HeartFilled, DeleteOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import './ViewPost.css'; // Custom styles for your component
 import { userAxiosInstance } from '../../services/axiosInstance';
 import { useSelector } from 'react-redux';
-import { message } from 'antd';
 import { Link } from 'react-router-dom';
+
+const { confirm } = Modal;
 
 const ViewPost = ({ onLike, onComment }) => {
   const { postId } = useParams();
@@ -79,6 +80,18 @@ const ViewPost = ({ onLike, onComment }) => {
     }
   };
 
+  const showDeleteConfirm = () => {
+    confirm({
+      title: 'Are you sure you want to delete this post?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'This action cannot be undone.',
+      okText: 'Yes',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk: () => onDelete(postId),
+    });
+  };
+
   const onDelete = async (postId) => {
     try {
       const response = await userAxiosInstance.delete(`/delete-post/${postId}/`);
@@ -128,7 +141,7 @@ const ViewPost = ({ onLike, onComment }) => {
               <Button
                 type="text"
                 icon={<DeleteOutlined />}
-                onClick={() => onDelete(postId)}
+                onClick={showDeleteConfirm}
                 className="post-delete-button"
               />
             )}
@@ -137,7 +150,6 @@ const ViewPost = ({ onLike, onComment }) => {
           <div className="post-description">
             {post.description}
           </div>
-          
 
           <div className="comments-section">
             <List
@@ -157,7 +169,7 @@ const ViewPost = ({ onLike, onComment }) => {
               )}
             />
           </div>
-          
+
           <div className="post-actions">
             <Button
               type="text"
@@ -166,7 +178,7 @@ const ViewPost = ({ onLike, onComment }) => {
               className="like-button"
             />
         
-            <span className="like-count">{ likeCount == 0 ? 'Be the first to like this post' : `${likeCount} ${likeCount === 1 ? 'Like' : 'Likes'}` }</span>
+            <span className="like-count">{ likeCount === 0 ? 'Be the first to like this post' : `${likeCount} ${likeCount === 1 ? 'Like' : 'Likes'}` }</span>
           </div>
 
           <div className="comment-input-container">
