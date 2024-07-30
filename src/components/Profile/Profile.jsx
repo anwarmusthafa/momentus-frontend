@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Profile.css';
 import { userAxiosInstance } from '../../services/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../../redux/slices/profileSlice';
 import EditProfileModal from '../Modal/EditProfileModal';
 
@@ -16,6 +16,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { momentusUsername } = useParams();
+  const user = useSelector((state) => state.profile.profile);
 
   const fetchProfile = async () => {
     setLoadingProfile(true);
@@ -81,10 +82,12 @@ const Profile = () => {
             <img src={profile?.profile_picture_url} alt="Profile" className="user-profile-image" />
             <div className="profile-info">
               <h1>{profile?.momentus_user_name}</h1>
+              { user.id === profile?.id ? 
               <div className="button-container">
                 <button className="edit-profile-button" onClick={handleEditProfileClick}>Edit Profile</button>
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
-              </div>
+              </div> : ""}
+
               <div className="profile-stats">
                 <div className="profile-stat">
                   <span className="stat-number">{posts.length}</span>

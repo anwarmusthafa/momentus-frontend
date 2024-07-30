@@ -20,10 +20,10 @@ const Sidebar = () => {
                     <i class="fa-solid fa-user"></i> Users
                     </NavLink>
                     
-                    {/* <NavLink to="/feed" activeClassName="active" className="sidebar-link">
-                        <i className="fa-regular fa-image"></i> Feed
+                    <NavLink to="/postmanagement" activeClassName="active" className="sidebar-link">
+                        <i className="fa-regular fa-image"></i> Posts
                     </NavLink>
-                    <NavLink to="/messages" activeClassName="active" className="sidebar-link">
+                    {/* <NavLink to="/messages" activeClassName="active" className="sidebar-link">
                         <i className="fas fa-envelope"></i> Messages
                     </NavLink>
                     <NavLink to="/notifications" activeClassName="active" className="sidebar-link">

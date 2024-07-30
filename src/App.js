@@ -15,6 +15,7 @@ import ViewPost from './components/Post/ViewPost';
 import Layout from './components/Layout/Layout';
 import SearchUserPage from './pages/SearchUserPage';
 import ExplorePage from './pages/ExplorePage';
+import PostManagementPage from './pages/PostManagementPage';
 
 function Logout() {
   localStorage.clear();
@@ -36,7 +37,8 @@ function App() {
 
 
         <Route path="/admin-home" element={<ProtectedRoute admin={true}><AdminHome /></ProtectedRoute>} />
-        <Route path="/usermanagement" element={<ProtectedRoute admin={true}><UserManagementPage /></ProtectedRoute>} />
+        <Route path="/usermanagement" element={<ProtectedRoute admin={true}>< UserManagementPage /></ProtectedRoute>} />
+        <Route path="/postmanagement" element={<ProtectedRoute admin={true}>< PostManagementPage /></ProtectedRoute>} />
 
         <Route path="/" element={<ProtectedRoute><Layout /></ProtectedRoute>}>
           <Route index element={<HomePage />} />

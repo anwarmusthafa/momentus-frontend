@@ -28,7 +28,7 @@ const UserManagementPage = () => {
     const handleToggleBlock = async (userId) => {
         const user = users.find(user => user.id === userId);
         try {
-            await axios.patch(`http://127.0.0.1:8000/users/${userId}/block/`, {
+            await axios.patch(`http://127.0.0.1:8000/user/${userId}/block/`, {
                 isBlocked: !user.isBlocked
             });
 
