@@ -29,11 +29,11 @@ const UserManagementPage = () => {
         const user = users.find(user => user.id === userId);
         try {
             await axios.patch(`http://127.0.0.1:8000/user/${userId}/block/`, {
-                isBlocked: !user.isBlocked
+                is_blocked: !user.is_blocked
             });
 
             setUsers(users.map(u =>
-                u.id === userId ? { ...u, isBlocked: !u.isBlocked } : u
+                u.id === userId ? { ...u, is_blocked: !u.is_blocked } : u
             ));
         } catch (error) {
             console.error('Error updating user block status:', error);
@@ -73,9 +73,9 @@ const UserManagementPage = () => {
                             <td>
                                 <button 
                                     onClick={() => handleToggleBlock(user.id)}
-                                    className={`toggle-button ${user.isBlocked ? 'blocked' : 'unblocked'}`}
+                                    className={`toggle-button ${user.is_blocked ? 'blocked' : 'unblocked'}`}
                                 >
-                                    {user.isBlocked ? 'Unblock' : 'Block'}
+                                    {user.is_blocked ? 'Unblock' : 'Block'}
                                 </button>
                             </td>
                         </tr>

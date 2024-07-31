@@ -11,7 +11,6 @@ const PostManagementPage = () => {
             try {
                 const response = await axios.get('http://127.0.0.1:8000/posts/');
                 if (Array.isArray(response.data)) {
-
                     setPosts(response.data);
                 } else {
                     console.error('Unexpected response structure:', response.data);
@@ -30,11 +29,11 @@ const PostManagementPage = () => {
         const post = posts.find(post => post.id === postId);
         try {
             await axios.patch(`http://127.0.0.1:8000/post/${postId}/block/`, {
-                isBlocked: !post.isBlocked
+                is_blocked: !post.is_blocked
             });
 
             setPosts(posts.map(p =>
-                p.id === postId ? { ...p, isBlocked: !p.isBlocked } : p
+                p.id === postId ? { ...p, is_blocked: !p.is_blocked } : p
             ));
         } catch (error) {
             console.error('Error updating post block status:', error);
@@ -46,9 +45,9 @@ const PostManagementPage = () => {
     }
 
     return (
-        <div className="post-management-page">
-            <h1>Post Management</h1>
-            <table className="post-table">
+        <div className="post-management">
+            <h1 className="post-management__title">Post Management</h1>
+            <table className="post-management__table">
                 <thead>
                     <tr>
                         <th>Post ID</th>
@@ -67,16 +66,16 @@ const PostManagementPage = () => {
                                 <img
                                     src={post.image_url || 'https://via.placeholder.com/50'}
                                     alt="Post"
-                                    className="post-image"
+                                    className="post-management__image"
                                 />
                             </td>
                             <td>{post.caption}</td>
                             <td>
                                 <button 
                                     onClick={() => handleToggleBlock(post.id)}
-                                    className={`toggle-button ${post.isBlocked ? 'blocked' : 'unblocked'}`}
+                                    className={`post-management__toggle-button ${post.is_blocked ? 'post-management__toggle-button--blocked' : 'post-management__toggle-button--unblocked'}`}
                                 >
-                                    {post.isBlocked ? 'Unblock' : 'Block'}
+                                    {post.is_blocked ? 'Unblock' : 'Block'}
                                 </button>
                             </td>
                         </tr>

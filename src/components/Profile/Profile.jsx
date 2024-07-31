@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 import './Profile.css';
 import { userAxiosInstance } from '../../services/axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -23,7 +25,6 @@ const Profile = () => {
     try {
       const response = await userAxiosInstance.get(`/accounts/user-profile/${momentusUsername}/`);
       setProfile(response.data);
-      console.log("p",profile);
     } catch (error) {
       console.error(error);
     } finally {
@@ -71,23 +72,47 @@ const Profile = () => {
   const handleProfileSave = () => {
     fetchProfile(); // Refresh profile data after saving
   };
-
+  const defaultProfilePicture = 'https://via.placeholder.com/150'; // Replace with your preferred default image URL
   return (
     <div className="profile-container">
       <div className="profile-header">
         {loadingProfile ? (
-          <p>Loading profile...</p>
+          <>
+            <Skeleton circle height={100} width={100} />
+            <div className="profile-info">
+              <Skeleton height={30} width={200} />
+              <div className="button-container">
+                <Skeleton height={35} width={100} />
+                <Skeleton height={35} width={100} />
+              </div>
+              <div className="profile-stats">
+                <Skeleton height={20} width={60} />
+                <Skeleton height={20} width={60} />
+                <Skeleton height={20} width={60} />
+              </div>
+              <div className="full-name">
+                <Skeleton height={20} width={150} />
+              </div>
+              <div className="profile-bio">
+                <Skeleton height={50} width={300} />
+              </div>
+            </div>
+          </>
         ) : (
           <>
-            <img src={profile?.profile_picture_url} alt="Profile" className="user-profile-image" />
+            <img src={profile?.profile_picture_url || defaultProfilePicture} alt="Profile" className="user-profile-image" />
             <div className="profile-info">
               <h1>{profile?.momentus_user_name}</h1>
-              { user.id === profile?.id ? 
-              <div className="button-container">
-                <button className="edit-profile-button" onClick={handleEditProfileClick}>Edit Profile</button>
-                <button className="logout-button" onClick={handleLogout}>Logout</button>
-              </div> : ""}
-
+              {user.id === profile?.id && (
+                <div className="button-container">
+                  <button className="edit-profile-button" onClick={handleEditProfileClick}>
+                    Edit Profile
+                  </button>
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </div>
+              )}
               <div className="profile-stats">
                 <div className="profile-stat">
                   <span className="stat-number">{posts.length}</span>
@@ -114,10 +139,12 @@ const Profile = () => {
       </div>
       <div className="profile-gallery">
         {loadingPosts ? (
-          <p>Loading posts...</p>
+          <>
+            <Skeleton count={6} height={200} width={200} />
+          </>
         ) : posts.length > 0 ? (
           posts.map((post) => (
-            <div key={post.id} className='post-container' onClick={() => handleViewPost(post)}>
+            <div key={post.id} className="post-container" onClick={() => handleViewPost(post)}>
               <img
                 src={post.image_url} // Adjust according to your post model
                 alt={post.caption} // Adjust according to your post model

@@ -23,6 +23,9 @@ const Sidebar = () => {
 
     const profile = useSelector((state) => state.profile.profile);
 
+    // Default profile picture URL
+    const defaultProfilePicture = 'https://via.placeholder.com/40'; // Replace with your preferred default image URL
+
     return (
         <>
             <div className="hamburger-menu" onClick={toggleSidebar}>
@@ -56,7 +59,8 @@ const Sidebar = () => {
                       className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} 
                       onClick={toggleSidebar}
                     >
-                      <img src={profile?.profile_picture_url} alt="Profile" /> Profile
+                      <img src={profile?.profile_picture_url || defaultProfilePicture} alt="Profile" />
+                      Profile
                     </NavLink>
                     <NavLink to="/settings" className={({ isActive }) => (isActive ? "active sidebar-link" : "sidebar-link")} onClick={toggleSidebar}>
                         <i className="fas fa-cog"></i> Settings

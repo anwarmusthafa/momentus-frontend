@@ -28,20 +28,31 @@ function Login() {
     e.preventDefault();
     setError(null); // Clear previous error
     try {
-      const response = await userAxiosInstance.post('/accounts/token/', formData);
-      if (response.status === 200) {
-        localStorage.setItem(USER_ACCESS_TOKEN, response.data.access);
-        localStorage.setItem(USER_REFRESH_TOKEN, response.data.refresh);
-        navigate('/');
-      } else {
-        console.error('Login failed:', response.data);
-        setError('Login failed. Please check your username and password.');
-      }
+        const response = await userAxiosInstance.post('/accounts/token/', formData);
+        if (response.status === 200) {
+            localStorage.setItem(USER_ACCESS_TOKEN, response.data.access);
+            localStorage.setItem(USER_REFRESH_TOKEN, response.data.refresh);
+            navigate('/');
+        } else {
+            console.error('Login failed:', response.data);
+            setError('Login failed. Please check your username and password.');
+        }
     } catch (error) {
-      console.error('Login error:', error.response.data);
-      setError('Login failed. Please check your username and password.');
+        if (error.response) {
+            let errorMessage = 'Login failed. Please check your username and password.';
+            if (error.response.data.detail) {
+                errorMessage = error.response.data.detail;
+            } else if (error.response.data.non_field_errors) {
+                errorMessage = error.response.data.non_field_errors[0];
+            }
+            setError(errorMessage);
+            console.error('Login error:', error.response.data);
+        } else {
+            console.error('Login error:', error);
+            setError('An unexpected error occurred. Please try again later.');
+        }
     }
-  };
+};
 
   return (
     <div className="login-container">
