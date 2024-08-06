@@ -106,6 +106,23 @@ const ViewPost = ({ onLike, onComment }) => {
     }
   };
 
+  const handleDeleteComment = async (comment_id) => {
+    try {
+      // Await the Axios delete request
+      const response = await userAxiosInstance.delete(`/comments/${comment_id}/`);
+  
+      if (response.status === 204) {
+        console.log("Comment deleted successfully");
+        message.success('Comment deleted successfully');
+        // Update the comments state to remove the deleted comment
+        setComments(comments.filter((comment) => comment.id !== comment_id));
+      }
+    } catch (error) {
+      console.error("Error deleting the comment:", error);
+      message.error('Failed to delete the comment');
+    }
+  };
+
   const handleCloseModal = () => {
     const { state } = location;
     navigate(-1); // Navigate back to the previous page
@@ -155,17 +172,26 @@ const ViewPost = ({ onLike, onComment }) => {
             <List
               dataSource={comments}
               renderItem={item => (
-                <List.Item>
-                  <List.Item.Meta
-                    avatar={<Avatar src={item.profile_picture} />}
-                    title={
-                      <Link to={`/profile/${item.momentus_user_name}`} className="no-link-styles">
-                        {item.momentus_user_name}
-                      </Link>
-                    }
-                    description={item.comment}
-                  />
-                </List.Item>
+                <List.Item
+                key={item.id}
+                actions={[
+                  user.id === item.commented_by && (
+                    <Button type="link" danger onClick={() => handleDeleteComment(item.id)}>
+                      <DeleteOutlined className='comment-delete-button' />
+                    </Button>
+                  )
+                ]}
+              >
+                <List.Item.Meta
+                  avatar={<Avatar src={item.profile_picture} />}
+                  title={
+                    <Link to={`/profile/${item.momentus_user_name}`} className="no-link-styles">
+                      {item.momentus_user_name}
+                    </Link>
+                  }
+                  description={item.comment}
+                />
+              </List.Item>
               )}
             />
           </div>

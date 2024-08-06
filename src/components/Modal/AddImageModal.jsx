@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './AddImageModal.css';
-import { FaTimes, FaImage, FaUpload } from 'react-icons/fa';
+import { FaTimes, FaImage} from 'react-icons/fa';
 import { userAxiosInstance } from '../../services/axiosInstance'; 
 import {  message as AntdMessage } from 'antd';
 
@@ -103,7 +103,7 @@ const Modal = ({ isOpen, onClose, userId }) => {
                 ></textarea>
                 <p className='text-danger text-center' >{message}</p>
                 <button className="modal-submit" onClick={handleSubmit}>
-                    <FaUpload /> Submit
+                     Share
                 </button>
             </div>
         </div>
